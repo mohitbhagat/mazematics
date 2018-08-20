@@ -2,18 +2,42 @@
 #include <iostream>
 #include <string>
 #include "game.h"
+using namespace std;
 
 int main(int argc, char* argv[]) {
 	if (argc != 3) {
-		std::cout << "Invalid number of arguments. Please provide 2 "
-			     "arguments."
-			  << std::endl;
+		cout << "Invalid number of arguments. Please provide 2 "
+			"arguments."
+		     << endl;
 		return 1;
 	}
-	std::string stemArg(argv[1]);
-	std::string saveArg(argv[2]);
+	string stemArg(argv[1]);
+	string saveArg(argv[2]);
 	Game gm = Game(stemArg, saveArg);
-	std::cout << gm;
+	gm.getPuzzle(gm.getCurLevel());
+
+	string input;
+	while (1) {
+		if (gm.isGameFinished()) {
+			cout << "Game Finished!" << endl;
+			break;
+		}
+
+		cout << gm;
+		cin >> input;
+		if (cin.fail() || cin.eof()) {
+			break;
+		}
+		if (input == "r") {
+			gm.right();
+		} else if (input == "l") {
+			gm.left();
+		} else if (input == "u") {
+			gm.up();
+		} else if (input == "d") {
+			gm.down();
+		}
+	}
 
 	return 0;
 }

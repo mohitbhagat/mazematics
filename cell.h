@@ -9,6 +9,8 @@ const char sub = '-';
 const char mult = 'X';
 const char sqr = '2';
 const char cube = '3';
+const char empty = ' ';
+const char goal = 'E';
 
 class Cell {
 	const int r;
@@ -18,6 +20,7 @@ class Cell {
        public:
 	Cell(int r, int c, char type);
 	char getType() const;
+	void setType(char newType);
 };
 
 #endif
