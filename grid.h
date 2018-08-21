@@ -18,8 +18,11 @@ class Grid {
 	int height;
 	posn playerPosn;
 	int pathLen = 1;
+	int maxPathLen = 0;
+	bool succeeded = false;
+	bool failed = false;
 
-	bool applyToPathLen(char transformation);
+	void applyToPathLen(char transformation);
 
        public:
 	Grid(int width, int height, std::string file = "");
@@ -27,10 +30,12 @@ class Grid {
 	friend std::ostream &operator<<(std::ostream &out, const Grid &g);
 
 	// Commands
-	bool right();
-	bool left();
-	bool up();
-	bool down();
+	void right();
+	void left();
+	void up();
+	void down();
+
+	bool isSuccess();
 };
 
 #endif

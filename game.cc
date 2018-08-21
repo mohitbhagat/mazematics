@@ -36,35 +36,39 @@ ostream &operator<<(std::ostream &out, const Game &gm) {
 }
 
 bool Game::right() {
-	bool finished = !(g->right());
-	if (finished) {
-		curLevel++;
-		getPuzzle(curLevel);
+	g->right();
+	if (g->isSuccess()) {
+		succeeded = true;
 	}
 }
 
 bool Game::left() {
-	bool finished = !(g->left());
-	if (finished) {
-		curLevel++;
-		getPuzzle(curLevel);
+	g->left();
+	if (g->isSuccess()) {
+		succeeded = true;
 	}
 }
 
 bool Game::up() {
-	bool finished = !(g->up());
-	if (finished) {
-		curLevel++;
-		getPuzzle(curLevel);
+	g->up();
+	if (g->isSuccess()) {
+		succeeded = true;
 	}
 }
 
 bool Game::down() {
-	bool finished = !(g->down());
-	if (finished) {
-		curLevel++;
-		getPuzzle(curLevel);
+	g->down();
+	if (g->isSuccess()) {
+		succeeded = true;
 	}
 }
 
 bool Game::isGameFinished() { return gameFinished; }
+
+bool Game::isSuccess() { return succeeded; }
+
+void Game::nextPuzzle() {
+	curLevel++;
+	succeeded = false;
+	getPuzzle(curLevel);
+}

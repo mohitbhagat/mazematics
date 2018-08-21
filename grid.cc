@@ -1,11 +1,14 @@
 #include "grid.h"
 #include <fstream>
+#include <sstream>
 using namespace std;
 
 Grid::Grid(int width, int height, string file) : width{width}, height{height} {
 	ifstream in{file};
 	string line;
 	getline(in, line);
+	stringstream putToInt(line);
+	putToInt >> maxPathLen;
 	int row = 0;
 	while (getline(in, line)) {
 		int col = 0;
@@ -21,36 +24,38 @@ Grid::Grid(int width, int height, string file) : width{width}, height{height} {
 	}
 }
 
-bool Grid::applyToPathLen(char transformation) {
+void Grid::applyToPathLen(char transformation) {
 	switch (transformation) {
 		case empty:
 			cout << "Empty:" << empty << "end" << endl;
-			return true;
+			return;
 		case add:
 			cout << "Add: " << add << endl;
 			pathLen++;
-			return true;
+			return;
 		case sub:
 			cout << "Sub: " << sub << endl;
 			pathLen--;
-			return true;
+			return;
 		case mult:
 			pathLen *= 2;
-			return true;
+			return;
 		case sqr:
 			pathLen = pathLen * pathLen;
-			return true;
+			return;
 		case cube:
 			pathLen = pathLen * pathLen * pathLen;
-			return true;
+			return;
 		case goal:
-			return false;
+			succeeded = true;
+			return;
 		default:
-			return true;
+			return;
 	}
 }
 
 ostream &operator<<(std::ostream &out, const Grid &g) {
+	out << "Max: " << g.maxPathLen << endl;
 	out << "Len: " << g.pathLen << endl;
 	out << ' ';
 	for (int i = 0; i < g.width; i++) {
@@ -72,50 +77,48 @@ ostream &operator<<(std::ostream &out, const Grid &g) {
 	return out;
 }
 
-bool Grid::right() {
+void Grid::right() {
 	if (playerPosn.col >= width - 1) {
-		return true;
+		return;
 	}
 	theGrid.at(playerPosn.row).at(playerPosn.col).setType(empty);
 	playerPosn.col += 1;
-	bool ret = applyToPathLen(
-	    theGrid.at(playerPosn.row).at(playerPosn.col).getType());
+	applyToPathLen(theGrid.at(playerPosn.row).at(playerPosn.col).getType());
 	theGrid.at(playerPosn.row).at(playerPosn.col).setType(player);
-	return ret;
+	return;
 }
 
-bool Grid::left() {
+void Grid::left() {
 	if (playerPosn.col <= 0) {
-		return true;
+		return;
 	}
 	theGrid.at(playerPosn.row).at(playerPosn.col).setType(empty);
 	playerPosn.col -= 1;
-	bool ret = applyToPathLen(
-	    theGrid.at(playerPosn.row).at(playerPosn.col).getType());
+	applyToPathLen(theGrid.at(playerPosn.row).at(playerPosn.col).getType());
 	theGrid.at(playerPosn.row).at(playerPosn.col).setType(player);
-	return ret;
+	return;
 }
 
-bool Grid::down() {
+void Grid::down() {
 	if (playerPosn.row >= height - 1) {
-		return true;
+		return;
 	}
 	theGrid.at(playerPosn.row).at(playerPosn.col).setType(empty);
 	playerPosn.row += 1;
-	bool ret = applyToPathLen(
-	    theGrid.at(playerPosn.row).at(playerPosn.col).getType());
+	applyToPathLen(theGrid.at(playerPosn.row).at(playerPosn.col).getType());
 	theGrid.at(playerPosn.row).at(playerPosn.col).setType(player);
-	return ret;
+	return;
 }
 
-bool Grid::up() {
+void Grid::up() {
 	if (playerPosn.row <= 0) {
-		return true;
+		return;
 	}
 	theGrid.at(playerPosn.row).at(playerPosn.col).setType(empty);
 	playerPosn.row -= 1;
-	bool ret = applyToPathLen(
-	    theGrid.at(playerPosn.row).at(playerPosn.col).getType());
+	applyToPathLen(theGrid.at(playerPosn.row).at(playerPosn.col).getType());
 	theGrid.at(playerPosn.row).at(playerPosn.col).setType(player);
-	return ret;
+	return;
 }
+
+bool Grid::isSuccess() { return succeeded; }

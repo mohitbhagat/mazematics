@@ -18,6 +18,18 @@ int main(int argc, char* argv[]) {
 
 	string input;
 	while (1) {
+		if (gm.isSuccess()) {
+			cout << "Congratulations! You completed the puzzle"
+			     << endl;
+			cout << "Enter n to go to the next puzzle" << endl;
+			cin >> input;
+			if (cin.fail() || cin.eof()) {
+				break;
+			}
+			if (input == "n") {
+				gm.nextPuzzle();
+			}
+		}
 		if (gm.isGameFinished()) {
 			cout << "Game Finished!" << endl;
 			break;
