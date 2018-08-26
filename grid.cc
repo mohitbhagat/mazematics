@@ -24,6 +24,8 @@ Grid::Grid(int width, int height, string file) : width{width}, height{height} {
 	}
 }
 
+vector<vector<Cell>> *Grid::getTheGrid() { return &theGrid; }
+
 void Grid::applyToPathLen(char transformation) {
 	switch (transformation) {
 		case empty:

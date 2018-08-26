@@ -27,6 +27,10 @@ class Grid {
        public:
 	Grid(int width, int height, std::string file = "");
 
+	// To be used by graphical display, in order to render the grid in the
+	// display
+	std::vector<std::vector<Cell>> *getTheGrid();
+
 	friend std::ostream &operator<<(std::ostream &out, const Grid &g);
 
 	// Commands

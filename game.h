@@ -31,6 +31,7 @@ class Game {
 	void getPuzzle(int level);
 	void nextPuzzle();
 	void endGame();
+	std::vector<std::vector<Cell>> *getTheGrid();
 
 	friend std::ostream &operator<<(std::ostream &out, const Game &gm);
 };

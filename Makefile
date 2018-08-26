@@ -1,11 +1,12 @@
 CXX = g++
-CXXFLAGS = -std=c++14 -Wextra -Wpedantic -Wall -Werror=vla -MMD -g
+CXXFLAGS = -std=c++14 -Wextra -Wpedantic -Wall -Werror=vla
+LINKER_FLAGS = -lSDL2
 EXEC = maze
-OBJECTS = main.o game.o grid.o cell.o puzzles.o
+OBJECTS = main.o game.o grid.o cell.o puzzles.o graphicaldisplay.o
 DEPENDS = ${OBJECTS:.o=.d}
 
 ${EXEC}: ${OBJECTS}
-	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC}
+	${CXX} ${OBJECTS} ${CXXFLAGS} ${LINKER_FLAGS} -o ${EXEC}
 
 -include ${DEPENDS}
 

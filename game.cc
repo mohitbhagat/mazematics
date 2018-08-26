@@ -72,3 +72,5 @@ void Game::nextPuzzle() {
 	succeeded = false;
 	getPuzzle(curLevel);
 }
+
+vector<vector<Cell>> *Game::getTheGrid() { return g->getTheGrid(); }
