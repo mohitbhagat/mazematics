@@ -40,12 +40,18 @@ bool Game::right() {
 	if (g->isSuccess()) {
 		succeeded = true;
 	}
+	if (g->isFailure()) {
+		failed = true;
+	}
 }
 
 bool Game::left() {
 	g->left();
 	if (g->isSuccess()) {
 		succeeded = true;
+	}
+	if (g->isFailure()) {
+		failed = true;
 	}
 }
 
@@ -54,6 +60,9 @@ bool Game::up() {
 	if (g->isSuccess()) {
 		succeeded = true;
 	}
+	if (g->isFailure()) {
+		failed = true;
+	}
 }
 
 bool Game::down() {
@@ -61,14 +70,24 @@ bool Game::down() {
 	if (g->isSuccess()) {
 		succeeded = true;
 	}
+	if (g->isFailure()) {
+		failed = true;
+	}
 }
 
 bool Game::isGameFinished() { return gameFinished; }
 
 bool Game::isSuccess() { return succeeded; }
 
+bool Game::isFailure() { return failed; }
+
 void Game::nextPuzzle() {
 	curLevel++;
 	succeeded = false;
+	getPuzzle(curLevel);
+}
+
+void Game::retry() {
+	failed = false;
 	getPuzzle(curLevel);
 }

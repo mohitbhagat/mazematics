@@ -36,6 +36,7 @@ class Grid {
 	void down();
 
 	bool isSuccess();
+	bool isFailure();
 };
 
 #endif

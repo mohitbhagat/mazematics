@@ -30,6 +30,16 @@ int main(int argc, char* argv[]) {
 				gm.nextPuzzle();
 			}
 		}
+		if (gm.isFailure()) {
+			cout << "Failed, enter rt to retry" << endl;
+			cin >> input;
+			if (cin.fail() || cin.eof()) {
+				break;
+			}
+			if (input == "rt") {
+				gm.retry();
+			}
+		}
 		if (gm.isGameFinished()) {
 			cout << "Game Finished!" << endl;
 			break;

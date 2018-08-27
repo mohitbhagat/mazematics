@@ -27,10 +27,12 @@ class Game {
 	bool down();
 	bool isGameFinished();
 	bool isSuccess();
+	bool isFailure();
 	int getCurLevel() const;
 	void getPuzzle(int level);
 	void nextPuzzle();
 	void endGame();
+	void retry();
 
 	friend std::ostream &operator<<(std::ostream &out, const Game &gm);
 };

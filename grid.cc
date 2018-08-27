@@ -28,27 +28,31 @@ void Grid::applyToPathLen(char transformation) {
 	switch (transformation) {
 		case empty:
 			cout << "Empty:" << empty << "end" << endl;
-			return;
+			break;
 		case add:
 			cout << "Add: " << add << endl;
 			pathLen++;
-			return;
+			break;
 		case sub:
 			cout << "Sub: " << sub << endl;
 			pathLen--;
-			return;
+			break;
 		case mult:
 			pathLen *= 2;
-			return;
+			break;
 		case sqr:
 			pathLen = pathLen * pathLen;
-			return;
+			break;
 		case cube:
 			pathLen = pathLen * pathLen * pathLen;
-			return;
+			break;
 		case goal:
+			if (pathLen > maxPathLen) {
+				failed = true;
+				break;
+			}
 			succeeded = true;
-			return;
+			break;
 		default:
 			return;
 	}
@@ -122,3 +126,5 @@ void Grid::up() {
 }
 
 bool Grid::isSuccess() { return succeeded; }
+
+bool Grid::isFailure() { return failed; }
