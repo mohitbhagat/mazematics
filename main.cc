@@ -59,7 +59,11 @@ int main(int argc, char* args[]) {
 		}
 
 		if (gd) {
-			gd->update();
+			bool success = gd->draw();
+			if (!success) {
+				cout << "GraphicalDisplay::draw() failed"
+				     << endl;
+			}
 		}
 
 		cout << gm;

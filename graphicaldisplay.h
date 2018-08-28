@@ -12,16 +12,16 @@ const int lrgHeight = 768;
 class GraphicalDisplay {
 	int width = medWidth;
 	int height = medHeight;
-	SDL_Window *Window = nullptr;
-	SDL_Surface *ScreenSurface = nullptr;
-	SDL_Renderer *Renderer = nullptr;
+	SDL_Window *window = nullptr;
+	SDL_Surface *screenSurface = nullptr;
+	SDL_Renderer *renderer = nullptr;
 	std::shared_ptr<std::vector<std::vector<Cell>>> theGrid = nullptr;
 
        public:
 	GraphicalDisplay(std::string size, Game &gm);
 	bool initDisplay();
 	bool loadMedia();
-	bool update();
+	bool draw();
 	void closeDisplay();
 };
 
