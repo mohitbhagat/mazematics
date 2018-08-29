@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wextra -Wpedantic -Wall -Werror=vla
-LINKER_FLAGS = -lSDL2
+LINKER_FLAGS = -lSDL2 -lSDL2_image
 EXEC = maze
 OBJECTS = main.o game.o grid.o cell.o puzzles.o graphicaldisplay.o
 DEPENDS = ${OBJECTS:.o=.d}

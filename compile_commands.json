@@ -8,80 +8,11 @@
             "-Wpedantic",
             "-Wall",
             "-Werror=vla",
-            "-g",
             "-o",
-            "grid.o",
-            "grid.cc"
+            "graphicaldisplay.o",
+            "graphicaldisplay.cc"
         ],
         "directory": "/home/mohit/projects/maze",
-        "file": "grid.cc"
-    },
-    {
-        "arguments": [
-            "c++",
-            "-c",
-            "-std=c++14",
-            "-Wextra",
-            "-Wpedantic",
-            "-Wall",
-            "-Werror=vla",
-            "-g",
-            "-o",
-            "puzzles.o",
-            "puzzles.cc"
-        ],
-        "directory": "/home/mohit/projects/maze",
-        "file": "puzzles.cc"
-    },
-    {
-        "arguments": [
-            "c++",
-            "-c",
-            "-std=c++14",
-            "-Wextra",
-            "-Wpedantic",
-            "-Wall",
-            "-Werror=vla",
-            "-g",
-            "-o",
-            "main.o",
-            "main.cc"
-        ],
-        "directory": "/home/mohit/projects/maze",
-        "file": "main.cc"
-    },
-    {
-        "arguments": [
-            "c++",
-            "-c",
-            "-std=c++14",
-            "-Wextra",
-            "-Wpedantic",
-            "-Wall",
-            "-Werror=vla",
-            "-g",
-            "-o",
-            "cell.o",
-            "cell.cc"
-        ],
-        "directory": "/home/mohit/projects/maze",
-        "file": "cell.cc"
-    },
-    {
-        "arguments": [
-            "c++",
-            "-c",
-            "-std=c++14",
-            "-Wextra",
-            "-Wpedantic",
-            "-Wall",
-            "-Werror=vla",
-            "-g",
-            "-o",
-            "game.o",
-            "game.cc"
-        ],
-        "directory": "/home/mohit/projects/maze",
-        "file": "game.cc"
+        "file": "graphicaldisplay.cc"
     }
 ]

@@ -36,6 +36,7 @@ int main(int argc, char* args[]) {
 	if (graphics) {
 		gd.reset(new GraphicalDisplay(args[3], gm));
 		gd->initDisplay();
+		gd->loadMedia();
 	}
 
 	string input;

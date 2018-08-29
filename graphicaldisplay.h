@@ -2,6 +2,9 @@
 #define GRAPHICALDISPLAY_H
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <map>
+#include <string>
 #include "game.h"
 
 const int medWidth = 800;
@@ -16,6 +19,7 @@ class GraphicalDisplay {
 	SDL_Surface *screenSurface = nullptr;
 	SDL_Renderer *renderer = nullptr;
 	std::shared_ptr<std::vector<std::vector<Cell>>> theGrid = nullptr;
+	std::map<std::string, SDL_Texture *> textures;
 
        public:
 	GraphicalDisplay(std::string size, Game &gm);
