@@ -16,7 +16,6 @@ class GraphicalDisplay {
 	int width = medWidth;
 	int height = medHeight;
 	SDL_Window *window = nullptr;
-	SDL_Surface *screenSurface = nullptr;
 	SDL_Renderer *renderer = nullptr;
 	std::shared_ptr<std::vector<std::vector<Cell>>> theGrid = nullptr;
 	std::map<std::string, SDL_Texture *> textures;
@@ -25,7 +24,7 @@ class GraphicalDisplay {
 	GraphicalDisplay(std::string size, Game &gm);
 	bool initDisplay();
 	bool loadMedia();
-	bool draw();
+	void draw();
 	void closeDisplay();
 };
 

@@ -20,6 +20,8 @@ class Cell {
        public:
 	Cell(int r, int c, char type);
 	char getType() const;
+	int getr() const;
+	int getc() const;
 	void setType(char newType);
 };
 

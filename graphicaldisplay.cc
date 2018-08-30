@@ -1,4 +1,5 @@
 #include "graphicaldisplay.h"
+#include "cell.h"
 using namespace std;
 
 GraphicalDisplay::GraphicalDisplay(string size, Game &gm)
@@ -31,23 +32,13 @@ bool GraphicalDisplay::initDisplay() {
 				cout << "IMG could not be initialized! Error: "
 				     << IMG_GetError() << endl;
 			} else {
-				screenSurface = SDL_GetWindowSurface(window);
-				SDL_SetColorKey(screenSurface, SDL_TRUE, 1);
-				this->renderer = SDL_CreateRenderer(
+				renderer = SDL_CreateRenderer(
 				    window, -1, SDL_RENDERER_ACCELERATED);
 				if (renderer == nullptr) {
 					cout
 					    << "renderer could not be created! "
 					       "SDL_Error: "
 					    << SDL_GetError() << endl;
-				} else {
-					if (SDL_SetRenderDrawColor(
-						renderer, 255, 255, 255, 255)) {
-						cout
-						    << "SDL_SetRenderDrawColor "
-						       "failed! Error: "
-						    << SDL_GetError() << endl;
-					}
 				}
 			}
 		}
@@ -55,42 +46,57 @@ bool GraphicalDisplay::initDisplay() {
 	return success;
 }
 
-SDL_Texture *loadSurfaceToTexture(SDL_Renderer *renderer,
-				  SDL_Surface *screenSurface, string path) {
-	SDL_Surface *surface = nullptr;
-	SDL_Texture *ret = nullptr;
-	surface = SDL_LoadBMP(path.c_str());
-	if (surface == nullptr) {
-		cout << "Unable to load surface '" << path
-		     << "' Error: " << SDL_GetError() << endl;
+SDL_Texture *loadTexture(SDL_Renderer *renderer, string file) {
+	SDL_Texture *texture = nullptr;
+	SDL_Surface *loaded = nullptr;
+
+	loaded = IMG_Load(file.c_str());
+	if (loaded == nullptr) {
+		cout << "Error loading image! IMG_Error: " << file << " "
+		     << IMG_GetError() << endl;
 	} else {
-		ret = SDL_CreateTextureFromSurface(renderer, surface);
-		if (surface) {
-			SDL_FreeSurface(surface);
+		texture = SDL_CreateTextureFromSurface(renderer, loaded);
+		if (texture == nullptr) {
+			cout << "Error creating texture! IMG_Error: " << file
+			     << " " << IMG_GetError() << endl;
 		}
-		if (ret == nullptr) {
-			cout << "SDL_CreateTextureFromSurface failed! "
-				"Error: "
-			     << SDL_GetError() << endl;
-		}
+		SDL_FreeSurface(loaded);
 	}
-	return ret;
+	return texture;
 }
 
 bool GraphicalDisplay::loadMedia() {
 	bool success = true;
-	SDL_Texture *add = nullptr;
-	add = loadSurfaceToTexture(renderer, screenSurface, "./pics/add.bmp");
-	textures.insert(pair<string, SDL_Texture *>("add", add));
+	textures["add"] = loadTexture(renderer, "./pics/add.bmp");
+	if (textures["add"] == NULL) {
+		cout << "Unable to load ./pics/add.bmp" << endl;
+	}
+	textures["sub"] = loadTexture(renderer, "./pics/sub.bmp");
+	if (textures["sub"] == NULL) {
+		cout << "Unable to load ./pics/sub.bmp" << endl;
+	}
+	textures["mult"] = loadTexture(renderer, "./pics/mult.bmp");
+	if (textures["mult"] == NULL) {
+		cout << "Unable to load ./pics/mult.bmp" << endl;
+	}
+	textures["sqr"] = loadTexture(renderer, "./pics/sqr.bmp");
+	if (textures["sqr"] == NULL) {
+		cout << "Unable to load ./pics/sqr.bmp" << endl;
+	}
+	textures["cube"] = loadTexture(renderer, "./pics/cube.bmp");
+	if (textures["cube"] == NULL) {
+		cout << "Unable to load ./pics/cube.bmp" << endl;
+	}
+	textures["goal"] = loadTexture(renderer, "./pics/goal.bmp");
+	if (textures["goal"] == NULL) {
+		cout << "Unable to load ./pics/goal.bmp" << endl;
+	}
 	return success;
 }
 
 void GraphicalDisplay::closeDisplay() {
-	SDL_FreeSurface(screenSurface);
-	screenSurface = NULL;
-
 	SDL_DestroyWindow(window);
-	window = NULL;
+	window = nullptr;
 
 	map<string, SDL_Texture *>::iterator it = textures.begin();
 	while (it != textures.end()) {
@@ -101,25 +107,69 @@ void GraphicalDisplay::closeDisplay() {
 	SDL_Quit();
 }
 
-bool drawGrid(SDL_Window *window, SDL_Surface *screenSurface,
-	      SDL_Renderer *renderer) {
-	bool success = true;
-	SDL_Rect rect = {50, 50, 500, 500};
-	SDL_Rect outline = {53, 53, 494, 494};
-	SDL_RenderClear(renderer);
-	SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-	success = !SDL_RenderFillRect(renderer, &rect);
-	SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
-	success = !SDL_RenderFillRect(renderer, &outline);
-	return success;
+void drawGrid(SDL_Renderer *renderer, shared_ptr<vector<vector<Cell>>> theGrid,
+	      map<string, SDL_Texture *> &textures) {
+	const int paddingTop = 70;
+	const int paddingLeft = 70;
+	const int cellWidth = 50;
+	const int cellHeight = 50;
+	const int cellMargin = 50;
+	for (int i = 0; i < theGrid->size(); i++) {
+		for (int j = 0; j < theGrid->at(i).size(); j++) {
+			Cell cur = theGrid->at(i).at(j);
+			char type = cur.getType();
+			SDL_Rect rect = {paddingLeft + cur.getc() * cellWidth,
+					 paddingTop + cur.getr() * cellHeight,
+					 cellWidth, cellHeight};
+			switch (type) {
+				case player:
+					SDL_SetRenderDrawColor(renderer, 0, 255,
+							       0, 255);
+					SDL_RenderFillRect(renderer, &rect);
+					break;
+				case add:
+					SDL_RenderCopy(renderer,
+						       textures["add"], nullptr,
+						       &rect);
+					break;
+				case sub:
+					SDL_RenderCopy(renderer,
+						       textures["sub"], nullptr,
+						       &rect);
+					break;
+				case mult:
+					SDL_RenderCopy(renderer,
+						       textures["mult"],
+						       nullptr, &rect);
+					break;
+				case sqr:
+					SDL_RenderCopy(renderer,
+						       textures["sqr"], nullptr,
+						       &rect);
+					break;
+				case cube:
+					SDL_RenderCopy(renderer,
+						       textures["cube"],
+						       nullptr, &rect);
+					break;
+				case empty:
+					SDL_SetRenderDrawColor(renderer, 255,
+							       255, 255, 255);
+					SDL_RenderFillRect(renderer, &rect);
+					break;
+				case goal:
+					SDL_RenderCopy(renderer,
+						       textures["goal"],
+						       nullptr, &rect);
+					break;
+			}
+		}
+	}
 }
 
-bool GraphicalDisplay::draw() {
-	bool success = true;
-	success = drawGrid(window, screenSurface, renderer);
+void GraphicalDisplay::draw() {
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderClear(renderer);
+	drawGrid(renderer, theGrid, textures);
 	SDL_RenderPresent(renderer);
-	SDL_Rect textureArea = {50, 50, 64, 64};
-	SDL_RenderCopy(renderer, textures["add"], NULL, &textureArea);
-	cout << "SDL_RenderCopy Error: " << SDL_GetError() << endl;
-	return success;
 }

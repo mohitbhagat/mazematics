@@ -70,10 +70,19 @@ int main(int argc, char* args[]) {
 		}
 
 		if (gd) {
-			bool success = gd->draw();
-			if (!success) {
-				cout << "GraphicalDisplay::draw() failed"
-				     << endl;
+			bool quit = false;
+			gd->draw();
+			SDL_Event e;
+			while (SDL_PollEvent(&e) != 0) {
+				if (e.type == SDL_QUIT) {
+					cout << "The Program has been closed"
+					     << endl;
+					quit = true;
+				}
+			}
+			if (quit) {
+				gd->closeDisplay();
+				gd.reset();
 			}
 		}
 
