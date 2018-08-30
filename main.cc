@@ -38,9 +38,9 @@ int main(int argc, char* args[]) {
 		gd->initDisplay();
 		gd->loadMedia();
 	}
-
 	string input;
-	while (1) {
+	bool quit = false;
+	while (!quit) {
 		if (gm.isSuccess()) {
 			cout << "Congratulations! You completed the "
 				"puzzle"
@@ -68,38 +68,52 @@ int main(int argc, char* args[]) {
 			cout << "Game Finished!" << endl;
 			break;
 		}
-
 		if (gd) {
-			bool quit = false;
 			gd->draw();
+			cout << "Graphics Drawn" << endl;
 			SDL_Event e;
-			while (SDL_PollEvent(&e) != 0) {
+			while (SDL_WaitEvent(&e) != 0) {
+				cout << "Breakpoint 2" << endl;
 				if (e.type == SDL_QUIT) {
 					cout << "The Program has been closed"
 					     << endl;
 					quit = true;
+				} else if (e.type == SDL_KEYDOWN) {
+					switch (e.key.keysym.sym) {
+						case SDLK_UP:
+							gm.up();
+							break;
+						case SDLK_DOWN:
+							gm.down();
+							break;
+						case SDLK_RIGHT:
+							gm.right();
+							break;
+						case SDLK_LEFT:
+							gm.left();
+							break;
+						default:
+							break;
+					}
 				}
 			}
-			if (quit) {
-				gd->closeDisplay();
-				gd.reset();
+		}
+		if (!gd) {
+			cout << gm;
+
+			cin >> input;
+			if (cin.fail() || cin.eof()) {
+				break;
 			}
-		}
-
-		cout << gm;
-
-		cin >> input;
-		if (cin.fail() || cin.eof()) {
-			break;
-		}
-		if (input == "r") {
-			gm.right();
-		} else if (input == "l") {
-			gm.left();
-		} else if (input == "u") {
-			gm.up();
-		} else if (input == "d") {
-			gm.down();
+			if (input == "r") {
+				gm.right();
+			} else if (input == "l") {
+				gm.left();
+			} else if (input == "u") {
+				gm.up();
+			} else if (input == "d") {
+				gm.down();
+			}
 		}
 	}
 	gd->closeDisplay();
