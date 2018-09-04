@@ -1,0 +1,8 @@
+make success png
+make failure png
+make game over png
+make new textures for cells
+add borders to cells
+	create UI for board
+	add save progress feature (Have it so that save progress can be disabled for testing, and enabled otherwise)
+Create browse levels feature (Implement it just like in the Calculator game)
