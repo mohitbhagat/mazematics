@@ -137,11 +137,16 @@ void GraphicalDisplay::drawGrid()
 	if (theGrid == nullptr) {
 		return;
 	}
-	const int paddingTop = 70;
-	const int paddingLeft = 70;
-	const int cellWidth = 70;
-	const int cellHeight = 70;
-	const int cellMargin = 50;
+	const int cellWidth = 60;
+	const int cellHeight = 60;
+	const int borderWidth = 5;
+	const int sidePanelWidth = 250;
+	const int gridHeight = medHeight - borderWidth*2;
+	const int gridWidth = medWidth - sidePanelWidth - borderWidth*2;
+	const int puzzleHeight = theGrid->size() * cellHeight;
+	const int puzzleWidth = theGrid->at(0).size() * cellWidth;
+	const int paddingTop = (gridHeight - puzzleHeight)/2;
+	const int paddingLeft = (gridWidth - puzzleWidth)/2;
 
 	SDL_Rect rect = {0, 0, 800, 500};
 	SDL_Texture *texture = loadTexture(renderer, "./pics/grid.bmp");

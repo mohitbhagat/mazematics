@@ -55,7 +55,7 @@ int main(int argc, char* args[])
 			gd->clearScreen();
 			gd->drawGrid();
 			gd->renderPresent();
-			if(gm->isSuccess() || gm->isFailure() || gm->isGameFinished()){
+			if(gm->isSuccess() || gm->isFailure() || gm->isGameFinished() || quit){
 				break;
 			}
 		}
@@ -92,6 +92,9 @@ int main(int argc, char* args[])
 					cout << gm << endl;
 					break;
 				}
+				if(quit){
+					break;
+				}
 			}
 		}
 		if (gm->isFailure()) {
@@ -124,6 +127,9 @@ int main(int argc, char* args[])
 				if (retryEntered) {
 					gm->retry();
 					cout << gm << endl;
+					break;
+				}
+				if(quit){
 					break;
 				}
 			}
