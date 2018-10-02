@@ -2,7 +2,6 @@ This is a simple puzzle game about arithmetic. It was made in C++ using the
 SDL2 graphics library. New levels are being made continuously.
 
 
-
 How to Install:
 
 This game uses SDL2 libraries, which you will need to install.
@@ -15,15 +14,10 @@ cd into the mazematics directory
 In a terminal run:
 
 sudo apt-get install libsdl2-dev
-
 sudo apt-get install libsdl2-image-dev
-
 sudo apt-get install libsdl2-ttf-dev
-
 cd src
-
 make
-
 ./maze
 
 
