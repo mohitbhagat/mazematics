@@ -12,7 +12,7 @@
 using namespace std;
 
 const string stemFile = "./stem.txt";
-const string saveFile = "../save.txt";
+const string saveFile = "./save.txt";
 
 int main(int argc, char* args[])
 {
@@ -30,6 +30,7 @@ int main(int argc, char* args[])
 	while (!quit) {
 		SDL_Event e;
 		cout << "Game Loop" << endl;
+		cout << (*gm) << endl;
 		while (SDL_WaitEvent(&e) != 0) {
 			SDL_FlushEvent(SDL_MOUSEMOTION);
 			if (e.type == SDL_QUIT) {

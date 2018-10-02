@@ -6,6 +6,7 @@ bool checkFileFormat(std::string file) {
 	ifstream in{file};
 	string line;
 	getline(in, line);
+	getline(in, line);
 	if (!getline(in, line)) {
 		return false;
 	}
@@ -22,6 +23,7 @@ int Puzzles::getWidthAtLevel(int i) {
 	ifstream in{thePuzzles.at(i)};
 	string line;
 	getline(in, line);
+	getline(in, line);
 	if (!getline(in, line)) {
 		string s = "Puzzle file empty";
 		throw s;
@@ -33,6 +35,7 @@ int Puzzles::getHeightAtLevel(int i) {
 	ifstream in{thePuzzles.at(i)};
 	string line;
 	int height = 0;
+	getline(in, line);
 	getline(in, line);
 	while (getline(in, line)) {
 		height++;

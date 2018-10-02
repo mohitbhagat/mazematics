@@ -1,9 +1,10 @@
-../levels/test1.in
-../levels/test5.in
-../levels/test2.in
-../levels/test3.in
-../levels/test4.in
 ../levels/lvl0.in
 ../levels/lvl1.in
 ../levels/lvl2.in
 ../levels/lvl3.in
+../levels/lvl4.in
+../levels/lvl5.in
+../levels/lvl6.in
+../levels/lvl7.in
+../levels/lvl8.in
+../levels/lvl9.in

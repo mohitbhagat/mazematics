@@ -11,6 +11,9 @@ Grid::Grid(int width, int height, string file)
 	string line;
 	getline(in, line);
 	stringstream putToInt(line);
+	putToInt >> pathLen;
+	getline(in, line);
+	putToInt = stringstream(line);
 	putToInt >> maxPathLen;
 	int row = 0;
 	while (getline(in, line)) {
