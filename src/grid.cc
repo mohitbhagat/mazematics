@@ -36,14 +36,11 @@ void Grid::applyToPathLen(char transformation)
 {
 	switch (transformation) {
 		case empty:
-			cout << "Empty:" << empty << "end" << endl;
 			break;
 		case add:
-			cout << "Add: " << add << endl;
 			pathLen++;
 			break;
 		case sub:
-			cout << "Sub: " << sub << endl;
 			pathLen--;
 			break;
 		case mult:

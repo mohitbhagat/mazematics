@@ -29,8 +29,6 @@ int main(int argc, char* args[])
 	gd->renderPresent();
 	while (!quit) {
 		SDL_Event e;
-		cout << "Game Loop" << endl;
-		cout << (*gm) << endl;
 		while (SDL_WaitEvent(&e) != 0) {
 			SDL_FlushEvent(SDL_MOUSEMOTION);
 			if (e.type == SDL_QUIT) {
@@ -38,7 +36,6 @@ int main(int argc, char* args[])
 				break;
 			}
 			if (e.type == SDL_KEYUP) {
-				cout << "Key up" << endl;
 				switch (e.key.keysym.sym) {
 					case SDLK_UP:
 						gm->up();
@@ -112,7 +109,6 @@ int main(int argc, char* args[])
 			gd->renderPresent();
 			while (SDL_WaitEvent(&e) != 0) {
 				SDL_FlushEvent(SDL_MOUSEMOTION);
-				cout << "Success Loop" << endl;
 				bool nextEntered = false;
 				gd->clearScreen();
 				gd->drawSuccessScreen();
@@ -135,7 +131,6 @@ int main(int argc, char* args[])
 				}
 				if (nextEntered) {
 					gm->nextPuzzle();
-					cout << gm << endl;
 					break;
 				}
 				if (quit) {
@@ -149,7 +144,6 @@ int main(int argc, char* args[])
 			gd->renderPresent();
 			while (SDL_WaitEvent(&e) != 0) {
 				SDL_FlushEvent(SDL_MOUSEMOTION);
-				cout << "Failure Loop" << endl;
 				bool retryEntered = false;
 				gd->clearScreen();
 				gd->drawFailureScreen();
@@ -172,7 +166,6 @@ int main(int argc, char* args[])
 				}
 				if (retryEntered) {
 					gm->retry();
-					cout << gm << endl;
 					break;
 				}
 				if (quit) {
